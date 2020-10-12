@@ -1,5 +1,4 @@
 var db = require('./sqlite_connection');
-var Activity = require('./model/Activity');
 var ActivityDAO = function(){
     
     this.insert = function(activity, callback){

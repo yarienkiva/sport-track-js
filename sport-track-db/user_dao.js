@@ -1,35 +1,42 @@
 var db = require('./sqlite_connection');
-var User = require('./model/User');
-var UserDAO = function(){
+
+var UserDAO = function() {
     
-    this.insert = function(user, callback){
-        stmt = db.prepare("INSERT INTO Users (email, password, last_name, first_name, birthday, gender, height, weight) VALUES (?,?,?,?,?,?,?,?)");
-        stmt.run(user.email, user.password, user.last_name, user.first_name, user.birthday, user.gender, user.weight);
-        stmt.finalize();
-        callback();
+    this.insert = (user, callback) => {
+        let query = "INSERT INTO Users (email, password, last_name, first_name, birthday, gender, height, weight) VALUES (?,?,?,?,?,?,?,?);";
+        db.run(
+            query,
+            [user.email, user.password, user.last_name, user.first_name, user.birthday, user.gender, user.height, user.weight],
+            callback
+        );
     };
 
-    this.update = function(user, callback){
-        stmt = db.prepare("UPDATE Users SET password=?, last_name=?, first_name=?, birthday=?, gender=?, height=?, weight=? WHERE email=?;");
-        stmt.run(user.password, user.last_name, user.first_name, user.birthday, user.gender, user.weight, user.email);
-        stmt.finalize();
-        callback();
+    this.update = (user, callback) => {
+        let query = "UPDATE Users SET password=?, last_name=?, first_name=?, birthday=?, gender=?, height=?, weight=? WHERE email=?;";
+        db.run(
+            query,
+            [user.password, user.last_name, user.first_name, user.birthday, user.gender, user.height, user.weight, user.email],
+            callback
+        );
     };
 
-    this.delete = function(user, callback){
-        stmt = db.prepare("DELETE FROM Users WHERE email=?");
-        stmt.run(user.email);
-        stmt.finalize();
-        callback();
+    this.delete = (user, callback) => {
+        let query = "DELETE FROM Users WHERE email=?;";
+        db.run(
+            query,
+            [user.email],
+            callback
+        );
     };
 
-    this.findAll = function(callback){
-        db.all("SELECT * FROM Users ORDER BY email", [], function(err, rows) {
+    this.findAll = (callback) => {
+        let query = "SELECT * FROM Users ORDER BY email;";
+        db.all(query, [], (err, rows) => {
             callback(err, rows);
         });
     };
 
-    this.findByKey = function(user, callback){
+    this.findByKey = (user, callback) => {
         db.all("SELECT * FROM Users WHERE email=?", [user.email], function(err, rows) {
             if(err) {
                 console.err(err.message);
@@ -43,12 +50,11 @@ var UserDAO = function(){
             }
         });
     };
-
+};
 var dao = new UserDAO();
 module.exports = dao;
 
 /*
-
 CREATE TABLE IF NOT EXISTS Users (
     email VARCHAR2(255)
         PRIMARY KEY
