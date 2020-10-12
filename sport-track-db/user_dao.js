@@ -34,6 +34,7 @@ var UserDAO = function() {
         let query = "SELECT * FROM Users WHERE email=?;";
         db.all(query, [email], callback);
     };
+        
 };
 var dao = new UserDAO();
 module.exports = dao;
