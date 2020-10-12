@@ -7,31 +7,62 @@ var user_dao = sport_track.user_dao;
 var user1 = new User("bob@protonmail.com", "passw0rd", "alice", "bob", "01/01/2000", "MAN", 180, 80);
 // console.log(user1);
 
-// DELETE
-user_dao.delete(user1, (err) => {
-    if (err) console.log("Error: " + err.message);
-    else console.log("User deleted !");
-});
-
 // INSERT
 user_dao.insert(user1, (err) => {
-    if (err) console.log("Error: " + err.message);
-    else console.log("User inserted !");
+    if (err) {
+        console.log("Error: " + err.message);
+    } else {
+        console.log("User inserted !");
+
+
+        // UPDATE
+        user1.password = "MY_NEW_PASSW0RD";
+        user_dao.update(user1, (err) => {
+            if (err) {
+                console.log("Error: " + err.message);
+            } 
+            else {
+                console.log("User updated !");
+
+                // FIND ALL
+                console.log("DISPLAY THE USER DATABASE:")
+                user_dao.findAll((err, rows) => {
+                    if (err) { 
+                        console.log(err.message);
+                    } else {
+                        console.log(rows);
+                        
+                        // FIND BY KEY
+                        console.log("FIND ONLY ONE USER:")
+                        user_dao.findByKey(user1.email, (err, rows) => {
+                            if (err) {
+                                console.log(err.message);
+                            } else {
+                                console.log(rows);
+
+                                // DELETE
+                                user_dao.delete(user1, (err) => {
+                                    if (err) {
+                                        console.log(err.message)
+                                    } else {
+                                        console.log("User deleted !");
+                                    }
+                                })
+                            }
+                        })
+
+                    }
+                });
+
+            }
+        });
+
+    }
 });
 
-// UPDATE
-user1.password = "MY_NEW_PASSW0RD";
-
-user_dao.update(user1, (err) => {
-    if (err) console.log("Error: " + err.message);
-    else console.log("User updated !");
-});
-
-// FIND BY KEY
 
 
-// FIND ALL
-user_dao.findAll((err, rows) => {
-    if (err) console.log(err.message);
-    else console.log(rows);
-});
+
+
+
+
