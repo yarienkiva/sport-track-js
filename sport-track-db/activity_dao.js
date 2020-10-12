@@ -1,81 +1,42 @@
 var db = require('./sqlite_connection');
+
 var ActivityDAO = function(){
     
-    this.insert = function(activity, callback){
-        stmt = db.prepare("INSERT INTO Activities (emailUser, date, description, distanceTotal, duration, startHour, endHour, cardioFreqMin, cardioFreqMax, cardioFreqAvg) VALUES (?,?,?,?,?,?,?,?,?,?)");
-        stmt.run(activity.emailUser, activity.date, activity.description, activity.distanceTotal, activity.duration, activity.startHour, activity.endHour, activity.cardioFreqMin, activity.cardioFreqMax, activity.cardioFreqAvg);
-        stmt.finalize();
-        callback();
+    this.insert = function(act, callback){
+        let query = "INSERT INTO Activities (emailUser, date, description, distanceTotal, duration, startHour, endHour, cardioFreqMin, cardioFreqMax, cardioFreqAvg) VALUES (?,?,?,?,?,?,?,?,?,?);";
+        db.run(
+            query,
+            [act.emailUser, act.date, act.description, act.distanceTotal, act.duration, act.startHour,
+                act.endHour, act.cardioFreqMin, act.cardioFreqMax, act.cardioFreqAvg],
+            callback
+        );
     };
 
-    this.update = function(activity, callback){
-        stmt = db.prepare("UPDATE Activities SET emailUser=?, date=?, description=?, distanceTotal=?, duration=?, startHour=?, endHour=?, cardioFreqMin=?, cardioFreqMax=?, cardioFreqAvg=? WHERE actId=?;");
-        stmt.run(activity.emailUser, activity.date, activity.description, activity.distanceTotal, activity.duration, activity.startHour, activity.endHour, activity.cardioFreqMin, activity.cardioFreqMax, activity.cardioFreqAvg, activity.actId);
-        stmt.finalize();
-        callback();
+    this.update = function(act, callback){
+        let query = "UPDATE Activities SET emailUser=?, date=?, description=?, distanceTotal=?, duration=?, startHour=?, endHour=?, cardioFreqMin=?, cardioFreqMax=?, cardioFreqAvg=? WHERE actId=?;";
+        db.run(
+            query,
+            [act.emailUser, act.date, act.description, act.distanceTotal, act.duration, act.startHour,
+                act.endHour, act.cardioFreqMin, act.cardioFreqMax, act.cardioFreqAvg, act.actId],
+            callback
+        );
     };
 
     this.delete = function(activity, callback){
-        stmt = db.prepare("DELETE FROM Activities WHERE actId=?");
-        stmt.run(activity.actId);
-        stmt.finalize();
-        callback();
+        let query = "DELETE FROM Activities WHERE actId=?;";
+        db.run(query, [activity.actId], callback);
     };
 
     this.findAll = function(callback){
-        db.all("SELECT * FROM Activities ORDER BY actId", [], function(err, rows) {
-            callback(err, rows);
-        });
+        let query = "SELECT * FROM Activities ORDER BY actId;";
+        db.all(query, callback);
     };
 
-    this.findByKey = function(activity, callback){
-        db.all("SELECT * FROM Activities WHERE actId=?", [activity.actId], function(err, rows) {
-            if(err) {
-                console.err(err.message);
-            } else {
-                console.log("Row : " + rows);
-                
-                rows.forEach( function(row) {
-                    console.log("Key : ("+key+") :");
-                    callback(rows);
-                });
-            }
-        });
+    this.findByKey = function(actId, callback){
+        let query = "SELECT * FROM Activities WHERE actId=?;";
+        db.all(query, [actId], callback);
     };
+};
 
 var dao = new ActivityDAO();
 module.exports = dao;
-
-/*
-
-CREATE TABLE IF NOT EXISTS Activities (
-    actId INTEGER PRIMARY KEY AUTOINCREMENT,
-
-    emailUser VARCHAR2(255) NOT NULL,
-    FOREIGN KEY (emailUser) REFERENCES users(emailUser),
-
-    date TEXT NOT NULL,
-
-    description VARCHAR2(255) NOT NULL,
-
-    distanceTotal FLOAT
-        CHECK (distanceTotal >= 0),
-    
-    duration TEXT,
-    
-    startHour TEXT,
-
-    endHour TEXT,
-
-    cardioFreqMin INTEGER(3)
-        CHECK (cardioFreqMin BETWEEN 0 AND 250),
-    
-    cardioFreqMax INTEGER(3)
-        CHECK (cardioFreqMax BETWEEN 0 AND 250),
-    
-    cardioFreqAvg INTEGER(3)
-        CHECK (cardioFreqAvg BETWEEN 0 AND 250),
-    
-);
-
-*/

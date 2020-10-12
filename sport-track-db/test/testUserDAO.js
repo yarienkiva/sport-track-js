@@ -59,10 +59,3 @@ user_dao.insert(user1, (err) => {
 
     }
 });
-
-
-
-
-
-
-

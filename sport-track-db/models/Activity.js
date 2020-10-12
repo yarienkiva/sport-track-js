@@ -1,5 +1,6 @@
 class Activity {
-    constructor(emailUser, date, description, distanceTotal, duration, startHour, endHour, cardioFreqMin, cardioFreqMax, cardioFreqAvg){
+    constructor(actId, emailUser, date, description, distanceTotal, duration, startHour, endHour, cardioFreqMin, cardioFreqMax, cardioFreqAvg){
+        this.actId = actId;
         this.emailUser = emailUser;
         this.date = date;
         this.description = description;
