@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "startDev": "nodemon ./bin/www"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
@@ -18,6 +19,7 @@
     "moment": "^2.29.1",
     "morgan": "~1.9.1",
     "multer": "^1.4.2",
+    "nodemon": "^2.0.4",
     "sport-track-db": "file:../sport-track-db",
     "sqlite3": "^5.0.0"
   }

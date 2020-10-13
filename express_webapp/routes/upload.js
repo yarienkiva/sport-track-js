@@ -4,11 +4,11 @@ var formidable = require('formidable');
 var moment = require('moment');
 var express = require('express');
 var router = express.Router();
-
 var sport_track = require('../../sport-track-db');
-var activity = sport_track.model.activity;
+
+var activity = sport_track.activity;
 var activity_dao  = sport_track.activity_dao;
-var activityentry = sport_track.model.activityentry;
+var activityentry = sport_track.activityentry;
 var activityentry_dao = sport_track.activityentry_dao;
 
 var calcul = require('../../exo1').calculDistanceTrajet;
