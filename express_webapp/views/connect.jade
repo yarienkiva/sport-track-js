@@ -1,16 +1,13 @@
-doctype html
-html(lang='fr')
-	head
-		title Express authentication example
-		link(rel='stylesheet', href='/stylesheets/style.css')
-	body
-		h1 Authentification
-		p Veuillez entrer votre adresse email et votre mot de passe.
-		form(method='post')
-			p
-				label(for='email') Email 
-				input(type='text', name='email')
-			p
-				label(for='password') Password 
-				input(type='password', name='password')
-			input(type='submit')
+extends layout
+
+block content
+	h1 Authentification
+	p Veuillez entrer votre adresse email et votre mot de passe.
+	form(method='post')
+		p
+			label(for='email') Email 
+			input(type='text', name='email')
+		p
+			label(for='password') Password 
+			input(type='password', name='password')
+		input(type='submit')

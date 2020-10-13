@@ -9,8 +9,13 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var connectRouter = require('./routes/connect');
 var uploadRouter = require('./routes/upload');
+var activityRouter = require('./routes/activity');
+const { acitivity } = require('../sport-track-db/sport-track-db');
 
 var app = express();
+
+// INSERT INTO Users (email, password, first_name, last_name, birthday, gender, height, weight) VALUES ("bob@bob.com", "test", "abc", "abc", "20/20/2001", "MAN", 180, 80);
+// INSERT INTO Activities (emailUser, date, description, distanceTotal, duration, startHour, endHour, cardioFreqMin, cardioFreqMax, cardioFreqAvg) VALUES ("bob@bob.com", "20/20/2020", "IUT -> RU", 1000, "0:15:00", "13:00:00", "13:15:00", 80, 100, 90);
 
 global.appRoot = path.resolve(__dirname);
 
@@ -31,6 +36,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/connect', connectRouter);
 app.use('/upload', uploadRouter);
+app.use('/activities', activityRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

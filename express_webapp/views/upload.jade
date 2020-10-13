@@ -1,15 +1,12 @@
-doctype html
-html(lang='fr')
-	head
-		title Express authentication example
-		link(rel='stylesheet', href='/stylesheets/style.css')
-	body
-		h1 Upload
-		p Fichier à upload
-		form(method="post", enctype="multipart\/form-data")
-			input(type="hidden", name="sid", value=sessionId)
+extends layout
 
-			p JSON:
-				input(type="file", name="file")
-			p
-				input(type="submit", value="upload")
+block content
+	h1 Upload
+	p Fichier à upload
+	form(method="post", enctype="multipart\/form-data")
+		input(type="hidden", name="sid", value=sessionId)
+
+		p JSON:
+			input(type="file", name="file")
+		p
+			input(type="submit", value="upload")
