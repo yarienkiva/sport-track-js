@@ -2,7 +2,7 @@ var db = require('./sqlite_connection');
 
 var ActivityDAO = function(){
     
-    this.insert = function(act, callback){
+    this.insert = (act, callback) => {
         let query = "INSERT INTO Activities (emailUser, date, description, distanceTotal, duration, startHour, endHour, cardioFreqMin, cardioFreqMax, cardioFreqAvg) VALUES (?,?,?,?,?,?,?,?,?,?);";
         db.run(
             query,
@@ -12,7 +12,7 @@ var ActivityDAO = function(){
         );
     };
 
-    this.update = function(act, callback){
+    this.update = (act, callback) => {
         let query = "UPDATE Activities SET emailUser=?, date=?, description=?, distanceTotal=?, duration=?, startHour=?, endHour=?, cardioFreqMin=?, cardioFreqMax=?, cardioFreqAvg=? WHERE actId=?;";
         db.run(
             query,
@@ -22,17 +22,17 @@ var ActivityDAO = function(){
         );
     };
 
-    this.delete = function(activity, callback){
+    this.delete = (activity, callback) => {
         let query = "DELETE FROM Activities WHERE actId=?;";
         db.run(query, [activity.actId], callback);
     };
 
-    this.findAll = function(callback){
+    this.findAll = (callback) => {
         let query = "SELECT * FROM Activities ORDER BY actId;";
         db.all(query, callback);
     };
 
-    this.findByKey = function(actId, callback){
+    this.findByKey = (actId, callback) => {
         let query = "SELECT * FROM Activities WHERE actId=?;";
         db.all(query, [actId], callback);
     };

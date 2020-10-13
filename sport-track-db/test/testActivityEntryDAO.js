@@ -1,48 +1,51 @@
 const sport_track = require('../sport-track-db');
-const Activity = require('../models/Activity');
+const ActivityEntry = require('../models/ActivityEntry');
 
-var activity_dao = sport_track.activity_dao;
-var act1 = new Activity(-1, "bob@protonmail.com", "01/01/2000", "IUT -> RU", 1200, 15, "15:30:00", "16:00:00", 80, 120, 100);
+var activityentry_dao = sport_track.activityentry_dao;
+var actEntry1 = new ActivityEntry(-1, "13:30:00", 98, 2.301358, -2.453, 15.2, 1);
+// hour, cardioFreq, latitude, longitude, altitude, activityId
 
 // INSERT
-activity_dao.insert(act1, function (err) {
+activityentry_dao.insert(actEntry1, function (err) {
     if (err) {
         console.log("Error: " + err.message);
     } else {
-        console.log("Activity inserted !");
-        act1.actId = this.lastID;
+        console.log("ActivityEntry inserted !");
+        actEntry1.dataId = this.lastID;
 
         // UPDATE
-        act1.description = "NOUVELLE DESC !!!!!!!!!!!!!!!!!!";
-        activity_dao.update(act1, (err) => {
+        actEntry1.latitude = 10;
+        actEntry1.longitude = 10;
+        actEntry1.altitude = 10;
+        activityentry_dao.update(actEntry1, (err) => {
             if (err) {
                 console.log("Error: " + err.message);
             } 
             else {
-                console.log("Activity updated !");
+                console.log("ActivityEntry updated !");
 
                 // FIND ALL
-                console.log("DISPLAY THE ACTIVITY DATABASE:")
-                activity_dao.findAll((err, rows) => {
+                console.log("DISPLAY THE ACTIVITY ENTRY DATABASE:")
+                activityentry_dao.findAll((err, rows) => {
                     if (err) { 
                         console.log(err.message);
                     } else {
                         console.log(rows);
                         
                         // FIND BY KEY
-                        console.log("FIND ONLY ONE ACTIVITY:")
-                        activity_dao.findByKey(act1.actId, (err, rows) => {
+                        console.log("FIND ONLY ONE ACTIVITY ENTRY:")
+                        activityentry_dao.findByKey(actEntry1.dataId, (err, rows) => {
                             if (err) {
                                 console.log(err.message);
                             } else {
                                 console.log(rows);
 
                                 // DELETE
-                                activity_dao.delete(act1, (err) => {
+                                activityentry_dao.delete(actEntry1, (err) => {
                                     if (err) {
                                         console.log(err.message)
                                     } else {
-                                        console.log("Activity deleted !");
+                                        console.log("ActivityEntry deleted !");
                                     }
                                 })
                             }

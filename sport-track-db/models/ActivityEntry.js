@@ -1,5 +1,6 @@
 class ActivityEntry {
-    constructor(hour, cardioFreq, latitude, longitude, altitude, activityId){
+    constructor(dataId, hour, cardioFreq, latitude, longitude, altitude, activityId){
+        this.dataId = dataId;
         this.hour = hour;
         this.cardioFreq = cardioFreq;
         this.latitude = latitude;
