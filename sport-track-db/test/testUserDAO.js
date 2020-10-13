@@ -38,17 +38,7 @@ user_dao.insert(user1, (err) => {
                             if (err) {
                                 console.log(err.message);
                             } else {
-                                console.log(rows);
-
-                                // DELETE
-                                user_dao.delete(user1, (err) => {
-                                    if (err) {
-                                        console.log(err.message)
-                                    } else {
-                                        console.log("User deleted !");
-                                    }
-                                })
-                            }
+                                console.log(rows);}
                         })
 
                     }
