@@ -11,7 +11,7 @@ var activity_dao  = sport_track.activity_dao;
 var activityentry = sport_track.activityentry;
 var activityentry_dao = sport_track.activityentry_dao;
 
-var calcul = require('../../exo1').calculDistanceTrajet;
+var calculDistanceTrajet = require('../../exo1/function').calculDistanceTrajet;
 
 verifKeys = function(data) {
 	if ('activity' in data && 'data' in data && 'date' in data.activity && 'description' in data.activity) {
@@ -73,7 +73,7 @@ router.post('/', function (req, res, next) {
 			let endtime   = fileData.data[fileData.data.length-1].time;
 			let timedif   = moment(endtime, 'HH:mm:ss').diff(moment(starttime, 'HH:mm:ss'), 'minutes');
 
-			let dist = calcul.calculDistanceTrajet(fileData.data);
+			let dist = calculDistanceTrajet(fileData.data);
 
 			let cardioMin = act.data.reduce((min, p)   => p.cardio_frequency < min ? p.cardio_frequency : min, act.data[0].cardio_frequency);
 			let cardioMax = act.data.reduce((min, p)   => p.cardio_frequency > max ? p.cardio_frequency : max, act.data[0].cardio_frequency);

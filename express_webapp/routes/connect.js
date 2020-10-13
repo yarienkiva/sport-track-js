@@ -45,4 +45,7 @@ router.get('/logout', (req,res) => {
 	}
 
 });
+
+// TODO get('/register') et post('/register')
+
 module.exports = router;

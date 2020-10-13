@@ -24,4 +24,4 @@ function calculDistanceTrajet(parcours){
     return dist;
 }
 
-export.modules = calculDistanceTrajet;
+module.exports = calculDistanceTrajet;
