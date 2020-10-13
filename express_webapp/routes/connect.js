@@ -24,7 +24,7 @@ router.post('/', function (req, res, next) {
 			if (req.body.password === rows[0]['password']) {
 				req.session.email = req.body.email;
 				req.session.authenticated = true;
-				res.redirect('/users');
+				res.redirect('/');
 			} else {
 				res.redirect('/connect');
 			}

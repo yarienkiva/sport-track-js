@@ -80,17 +80,20 @@ router.post('/', function (req, res, next) {
 			let cardioAvg = act.data.reduce((total, p) => total + p.cardio_frequency / act.data.length, 0);
 			
 			let act = new activity.Activity(req.session.email, fileData.date, fileData.description, timedif, starttime, endtime, cardioMin, cardioMax, cardioAvg);
-			activity_dao.insert(act);
-
-			// manque tous les callbacks
+			activity_dao.insert(act, function(err) { 
+				if (err) console.log(err)
+				else console.log(this.lastID)
+			});
 
 			act.data.forEach(key => {
-				activityentry_dao.insert(key.time, key.cardio_frequency, key.latitude, key.longitude, key.altitude);
+				activityentry_dao.insert(key.time, key.cardio_frequency, key.latitude, key.longitude, key.altitude, function(err) { console.log(err) });
 			})
 
+			console.log()
+		} else {
+			res.write('<h1>Wrong file structure</h1>');
+			res.end('<a href='+'/upload'+'>Back</a>'); 
 		}
-
-
 	});
 	
 	res.render('upload');
