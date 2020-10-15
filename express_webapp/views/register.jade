@@ -1,44 +1,93 @@
 extends layout
 
 block content
-	h1 Authentification
-	p Veuillez entrer votre adresse email et votre mot de passe.
-	form(method='post')
-		p
-			label(for='email') Email 
-			input(type='text', name='email')
-		p
-			label(for='password') Password 
-			input(type='password', name='password')
+	h1 Register page
 
-		p
-			label(for='conf_password') Confirm password 
-			input(type='password', name='conf_password')
-		
-		p
-			label(for='first_name') Firstname 
-			input(type='text', name='first_name')
-		
-		p
-			label(for='last_name') Lastname 
-			input(type='text', name='last_name')
-		
-		p
+	if error
+		pre
+			div.alert.alert-danger(role="alert") #{error}
+
+	form(action='' method='post')
+		.form-group
+			label(for='emailInput') Email address
+			input#emailInput.form-control(type='email' name='email' aria-describedby='emailHelp' value="")
+			small#emailHelp.form-text.text-muted Ex: name@domain.com
+		.form-group
+			label(for='passowrdInput') Password
+			input#passowrdInput.form-control(type='password' name='password')
+		.form-group
+			label(for='fnInput') First name
+			input#fnInput.form-control(type='text' name='first_name' aria-describedby='fnHelp' value="")
+			small#fnHelp.form-text.text-muted Ex: John
+		.form-group
+			label(for='lnInput') Last name
+			input#lnInput.form-control(type='text' name='last_name' aria-describedby='lnHelp' value="")
+			small#lnHelp.form-text.text-muted Ex: Doe
+		.form-group
 			label(for='birthday') Birthday
-			input(type='date', name='birthday')
+			input#birthday(type='date' name='birthday' value="")
+		.form-group
+			label(for='gender') Gender
+			select#gender.form-control(name='gender')
+				option(value='WOMAN') WOMAN
+				option(value='MAN') MAN
+				option(value='OTHER') OTHER
+		.form-group
+			label#labelHeight(for='height') Height (cm)
+			input#height.form-control-range(type='range' name='height' min='40' max='220' onchange='updateRangeHeight(this.value);' value="")
+		.form-group
+			label#labelWeight(for='Weight') Weight (kg)
+			input#weight.form-control-range(type='range' name='weight' min='10' max='300' onchange='updateRangeWeight(this.value);' value="")
+		button.btn.btn-primary(type='submit' name='submit') Register
 
-		p
-			form-control(name='gender')
-				option(value='MAN')
-				option(value='WOMAN') 
-				option(value='OTHER') 
+	script.
+		function updateRangeWeight(val) {
+		document.getElementById('labelWeight').innerHTML = "Weight (kg): " + val;
+		}
+		function updateRangeHeight(val) {
+		document.getElementById('labelHeight').innerHTML = "Height (cm): " + val;
+		}
+		updateRangeHeight(document.getElementById("height").value);
+		updateRangeWeight(document.getElementById("weight").value);
 
-		p
-			label(for='height') Height
-			input(type='range', name='height', min= 10, max= 300, step='1')
+	//- h1 Authentification
+	//- p Veuillez entrer votre adresse email et votre mot de passe.
+	//- form(method='post')
+	//- 	p
+	//- 		label(for='email') Email 
+	//- 		input(type='text', name='email')
+	//- 	p
+	//- 		label(for='password') Password 
+	//- 		input(type='password', name='password')
 
-		p
-			label(for='weight') Weight
-			input(type='range', name='weight', min= 5, max= 300, step='1')
+	//- 	p
+	//- 		label(for='conf_password') Confirm password 
+	//- 		input(type='password', name='conf_password')
+		
+	//- 	p
+	//- 		label(for='first_name') Firstname 
+	//- 		input(type='text', name='first_name')
+		
+	//- 	p
+	//- 		label(for='last_name') Lastname 
+	//- 		input(type='text', name='last_name')
+		
+	//- 	p
+	//- 		label(for='birthday') Birthday
+	//- 		input(type='date', name='birthday')
 
-		input(type='submit')
+	//- 	p
+	//- 		form-control(name='gender')
+	//- 			option(value='MAN')
+	//- 			option(value='WOMAN') 
+	//- 			option(value='OTHER') 
+
+	//- 	p
+	//- 		label(for='height') Height
+	//- 		input(type='range', name='height', min= 10, max= 300, step='1')
+
+	//- 	p
+	//- 		label(for='weight') Weight
+	//- 		input(type='range', name='weight', min= 5, max= 300, step='1')
+
+	//- 	input(type='submit')
