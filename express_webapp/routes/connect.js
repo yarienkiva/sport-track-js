@@ -10,12 +10,12 @@ router.get('/', function (req, res, next) {
 
 router.post('/', function (req, res, next) {
 	if (!req.body.email || !req.body.password) {
-		res.redirect('/connect');
+		res.render('connect', {email: req.body.email});
 	}
 	user_dao.findByKey(req.body.email, function(err, rows) {
 		console.log(rows);
 		if (err != null || rows === undefined || rows.length == 0) {
-			res.redirect('/connect');
+			res.render('connect', {email: req.body.email});
 		} else {
 //				bcrypt.compare(req.body.password, rows[0]['password'], function(err, res){
 //				req.session.authenticated = true;
@@ -26,7 +26,7 @@ router.post('/', function (req, res, next) {
 				req.session.authenticated = true;
 				res.redirect('/');
 			} else {
-				res.redirect('/connect');
+				res.render('connect', {email: req.body.email});
 			}
 		}
 	});

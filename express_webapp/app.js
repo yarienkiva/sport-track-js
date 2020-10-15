@@ -8,6 +8,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var connectRouter = require('./routes/connect');
+var registerRouter = require('./routes/register');
 var uploadRouter = require('./routes/upload');
 var activityRouter = require('./routes/activity');
 const { acitivity } = require('../sport-track-db/sport-track-db');
@@ -34,6 +35,7 @@ app.use(session({secret: 'ABCDEFGH'}));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/register', registerRouter);
 app.use('/connect', connectRouter);
 app.use('/upload', uploadRouter);
 app.use('/activities', activityRouter);
