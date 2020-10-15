@@ -13,7 +13,7 @@ router.get('/', (req, res, next) => {
                 console.log(error.message)
             } else {
                 console.log(row);
-                res.render('activities');
+                res.render('activities', {active: 'activities'});
             }
         });
 

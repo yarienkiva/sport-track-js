@@ -1,7 +1,73 @@
 doctype html
 html
   head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+    title SportTrack
+    meta(name='theme-color' content='#563d7c')
+
+    link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css' integrity='sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z' crossorigin='anonymous')
+    link(href='css/cover.css' rel='stylesheet')
+    link(rel='shortcut icon' href='img/favicon_alpha.ico' type='image/x-icon')
+    link(rel='stylesheet' href='css/main.css')
+
+  body.text-center
+    .cover-container.d-flex.w-100.h-100.p-3.mx-auto.flex-column
+      header.masthead.mb-auto
+        .inner
+          h3.masthead-brand
+            a.navbar-brand(href='/')
+              img(src='img/favicon_alpha.ico' alt='Icon' style='width: 40px; height: auto;')
+              |  SportTrack
+          nav.nav.nav-masthead.justify-content-center
+
+            if active == 'home'
+              a.nav-link.active(href='/') Home
+            else
+              a.nav-link(href='/') Home
+
+            if auth == true
+              if active == 'profile'
+                a.nav-link.active(href='/profile') Profile
+              else
+                a.nav-link(href='/profile') Profile
+
+              if active == 'activities'
+                a.nav-link.active(href='/activities') Activities
+              else
+                a.nav-link(href='/activities') Activities  
+
+              if active == 'upload'
+                a.nav-link.active(href='/upload') Upload
+              else
+                a.nav-link(href='/upload') Upload
+          
+              if active == 'logout'
+                a.nav-link.active(href='/connect/logout') Logout
+              else
+                a.nav-link(href='/connect/logout') Logout
+            else
+              if active == 'connect'
+                a.nav-link.active(href='/connect') Log in
+              else
+                a.nav-link(href='/connect') Log in
+
+              if active == 'register'
+                a.nav-link.active(href='/register') Register
+              else
+                a.nav-link(href='/register') Register
+
+      main.inner.cover(role='main')
+        block content
+      
+      footer.mastfoot.mt-auto
+        .inner
+          p
+            a(href='/') SportTrack
+            |, created by Alois DE SOUZA and Boris LICKINDORF.
+
+    // Optional JavaScript
+    // jQuery first, then Popper.js, then Bootstrap JS
+    script(src='https://code.jquery.com/jquery-3.5.1.slim.min.js' integrity='sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj' crossorigin='anonymous')
+    script(src='https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js' integrity='sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN' crossorigin='anonymous')
+    script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js' integrity='sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV' crossorigin='anonymous')

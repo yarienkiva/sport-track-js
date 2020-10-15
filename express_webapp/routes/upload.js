@@ -35,16 +35,16 @@ verifKeys = function(data) {
 
 router.get('/', function (req, res, next) {
 	if (req.session.authenticated) {
-		res.render('upload');
+		res.render('upload', {active: 'upload'});
 	} else {
-		res.render('connect');
+		res.render('connect', {active: 'connect'});
 	}
 });
 
 router.post('/', function (req, res, next) {
 
 	if (!req.session.authenticated) {
-		res.render('connect');
+		res.render('connect', {active: 'connect'});
 	}
 
 	var form = new formidable.IncomingForm();
@@ -96,7 +96,7 @@ router.post('/', function (req, res, next) {
 		}
 	});
 	
-	res.render('upload');
+	res.render('upload', {active: 'upload'});
 });
 
 module.exports = router;

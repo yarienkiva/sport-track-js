@@ -5,7 +5,7 @@ var user_dao = require('../../sport-track-db').user_dao;
 // const bcrypt = require('bcrypt');
 
 router.get('/', function (req, res, next) {
-	res.render('connect');
+	res.render('connect', {active: 'connect'});
 });
 
 router.post('/', function (req, res, next) {
@@ -43,7 +43,7 @@ router.get('/logout', (req,res) => {
 			res.end('<a href='+'/'+'></a>'); 
 	    });
 	}
-
+	res.redirect('/');
 });
 
 // TODO get('/register') et post('/register')

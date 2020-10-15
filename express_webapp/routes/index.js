@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Gros placeholder sa mère' });
+  res.render('index', { active: 'home' });
 });
 
 module.exports = router;

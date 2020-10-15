@@ -1,10 +1,11 @@
 extends layout
 
 block content
-	h1= title
-	p Welcome to #{title} ... 
-		ul
-			li: a(href="/connect") Login
-			li: a(href="/connect/logout") Logout
-			li: a(href="/users") List of all the users
-			li: a(href="/upload") Upload 
+	h1.cover-heading SportTrack
+	p.lead(style='margin-top: 25px; margin-bottom: 30px;')
+		| An athlete cannot run with money in his pockets. He must run with hope in his heart and dreams in his head.
+		br
+		small From Emil Zatopek
+	p.lead
+		a.btn.btn-lg.btn-secondary(href="/activities") Activities
+		// a.btn.btn-lg.btn-secondary(href="/register") Register
