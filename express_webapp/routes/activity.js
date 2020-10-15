@@ -4,7 +4,7 @@ var router = express.Router();
 var activity_dao = require('../../sport-track-db').activity_dao;
 
 // endpoint "/activities"
-router.get('/', (req, res, next) => {
+router.get('/', (req, res) => {
     if (req.session.authenticated !== true) {
         res.redirect('/connect');
     } else {

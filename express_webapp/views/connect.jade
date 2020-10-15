@@ -1,13 +1,21 @@
 extends layout
 
 block content
-	h1 Authentification
-	p Veuillez entrer votre adresse email et votre mot de passe.
-	form(method='post')
-		p
-			label(for='email') Email 
-			input(type='text', name='email')
-		p
-			label(for='password') Password 
-			input(type='password', name='password')
-		input(type='submit')
+	h1 Login page
+
+	if error
+		pre
+			div.alert.alert-danger(role="alert") #{error}
+
+	form(action='' method='post')
+		.form-group
+			label(for='emailInput') Email address
+			if email
+				input#emailInput.form-control(type='email' name='email' aria-describedby='emailHelp' value='#{email}')
+			else
+				input#emailInput.form-control(type='email' name='email' aria-describedby='emailHelp')
+			small#emailHelp.form-text.text-muted Ex: name@domain.com
+		.form-group
+			label(for='passowrdInput') Password
+			input#passowrdInput.form-control(type='password' name='password')
+		button.btn.btn-primary(type='submit' name='submit') Login
