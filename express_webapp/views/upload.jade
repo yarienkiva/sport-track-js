@@ -1,12 +1,16 @@
 extends layout
 
 block content
-	h1 Upload
-	p Fichier à upload
-	form(method="post", enctype="multipart\/form-data")
-		input(type="hidden", name="sid", value=sessionId)
+	link(rel='stylesheet' href='css/uploadform.css')
+	script(src='js/uploadform.js')
+	
+	h3 Upload Sport Activity
 
-		p JSON:
-			input(type="file", name="file")
-		p
-			input(type="submit", value="upload")
+	if error
+		pre
+			div.alert.alert-danger(role="alert") #{error}
+
+	form(action='' method='POST' enctype='multipart/form-data')
+		input(type='file' name='activity' onchange='changeform(this);')
+		p#formText Drag your JSON files here or click in this area.
+		button(type='submit') Upload
