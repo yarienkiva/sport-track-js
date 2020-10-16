@@ -11,7 +11,7 @@ var activityentry = require('./models/ActivityEntry');
 module.exports = {
     db: db_connection,
     user: user,
-    acitivity: activity,
+    activity: activity,
     activityentry: activityentry,
     user_dao: user_dao,
     activity_dao: activity_dao,

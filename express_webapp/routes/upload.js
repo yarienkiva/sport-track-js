@@ -96,12 +96,14 @@ router.post('/', function (req, res, next) {
 			let cardioMax = fileData.data.reduce((max, p)   => p.cardio_frequency > max ? p.cardio_frequency : max, fileData.data[0].cardio_frequency);
 			let cardioAvg = fileData.data.reduce((total, p) => total + p.cardio_frequency / fileData.data.length, 0);
 
+			console.log('', Activity);
 			let act = new Activity(-1, req.session.email, fileData.activity.date, fileData.activity.description, dist, timedif, starttime, endtime, cardioMin, cardioMax, cardioAvg);
+
 			activity_dao.insert(act, function(err) { 
 				if (err) res.status(500).render('error', {message: "Couldn't insert activity", error:{status: 500, stack: "Activity probably already exists"}});
 				else {
 					let lastid = this.lastID;			
-					act.data.forEach(key => {
+					fileData.data.forEach(key => {
 						activityentry_dao.insert(new ActivityEntry(lastid, key.time, key.cardio_frequency, key.latitude, key.longitude, key.altitude), function(err) { 
 							res.status(500).render('error', {message: "Couldn't insert activity data", error:{status: 500, stack: "Activity data probably already exists"}});
 						});
