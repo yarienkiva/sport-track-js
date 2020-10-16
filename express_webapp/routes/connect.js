@@ -7,7 +7,7 @@ var user_dao = require('../../sport-track-db').user_dao;
  * Affiche le formulaire de connection
  */
 router.get('/', function (req, res) {
-	return res.render('connect', {active: 'connect'});
+	return res.render('connect', {active: 'connect', auth: req.session.authenticated});
 });
 
 /**
@@ -15,18 +15,18 @@ router.get('/', function (req, res) {
  */
 router.post('/', function (req, res) {
 	if (!req.body.email || !req.body.password) {
-		return res.render('connect', {email: req.body.email});
+		return res.render('connect', {email: req.body.email, auth: req.session.authenticated});
 	}
 	user_dao.findByKey(req.body.email, function(err, rows) {
 		if (err != null || rows === undefined || rows.length == 0) {
-			return res.render('connect', {email: req.body.email});
+			return res.render('connect', {email: req.body.email, auth: req.session.authenticated});
 		} else {
 			if(bcrypt.compareSync(req.body.password, rows[0]['password'])) {
 				req.session.email = req.body.email;
 				req.session.authenticated = true;
 				res.redirect('/');
 			} else {
-				return res.render('connect', {email: req.body.email});
+				return res.render('connect', {email: req.body.email, auth: req.session.authenticated});
 			}
 		}
 	});

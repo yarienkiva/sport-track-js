@@ -11,7 +11,7 @@ router.get('/', function(req, res) {
             if (err != null) {
                 console.log("ERROR= " +err);
             } else {
-                res.render('activities', {active: 'activities', data:rows});
+                res.render('activities', {active: 'activities', auth: req.session.authenticated, data: rows});
             }
         });
     } else {

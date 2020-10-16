@@ -7,7 +7,7 @@ block content
 		br
 		small From Emil Zatopek
 	p.lead
-		a.btn.btn-lg.btn-secondary(href="/activities") Activities
-		br
-		br
-		a.btn.btn-lg.btn-secondary(href="/upload") Upload activity
+		if auth == true
+			a.btn.btn-lg.btn-secondary(href="/activities") Activities
+		else
+			a.btn.btn-lg.btn-secondary(href="/register") Register
