@@ -7,17 +7,12 @@ var user_dao = require('../../sport-track-db').user_dao;
  * Affiche le formulaire de connection
  */
 router.get('/', function (req, res) {
-<<<<<<< HEAD
 	if (req.session.authenticated) {
 		return res.redirect('/');
 	} else {
 		return res.render('connect', {active: 'connect'});
 	}
-||||||| 213ee70
-	return res.render('connect', {active: 'connect'});
-=======
 	return res.render('connect', {active: 'connect', auth: req.session.authenticated});
->>>>>>> 47f09a91776bfd74eed724715a687dd1e146f5ce
 });
 
 /**
