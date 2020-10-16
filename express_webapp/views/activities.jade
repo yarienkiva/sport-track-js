@@ -1,27 +1,27 @@
 extends layout
 
 block content
-    h1 List all activities
+    h1 List of all activities
 
-    table(border='1')
-        thead
+    table.table.table-dark.table-striped
+        thead.thead-dark
             tr
-                th Description
-                th Date
-                th Started at
-                th Duration
-                th Distance
-                th Avg heart freq.
-                th Max heart freq.
-                th Min heart freq.
+                th(scope='col') Description
+                th(scope='col') Date
+                th(scope='col') Started at
+                th(scope='col') Duration
+                th(scope='col') Distance
+                th(scope='col') Avg heart freq.
+                th(scope='col') Max heart freq.
+                th(scope='col') Min heart freq.
         tbody
             each val in data
                 tr
-                td= val.description
-                td= val.date
-                td= val.startHour
-                td= val.duration
-                td= val.distanceTotal
-                td= val.cardioFreqAvg
-                td= val.cardioFreqMax
-                td= val.cardioFreqMin
+                    th(scope='row') #{val.description}
+                    th #{val.date}
+                    th #{val.startHour}
+                    th #{val.duration}
+                    th #{val.distanceTotal}
+                    th #{val.cardioFreqAvg}
+                    th #{val.cardioFreqMax}
+                    th #{val.cardioFreqMin}
