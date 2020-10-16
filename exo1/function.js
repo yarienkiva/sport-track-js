@@ -5,7 +5,7 @@ class CalculDistance{
      * @param  {float} degre degré
      * @return {float}       degré radian
      */
-    #convertionRadian(degre){
+    convertionRadian(degre){
         return (Math.PI * degre) / 180;
     }
 
@@ -18,10 +18,10 @@ class CalculDistance{
      * @return {float}       
      */
     calculDistance2PointsGPS(lat1, long1, lat2, long2){
-        var lat1Rad   = this.#convertionRadian(lat1);
-        var lat2Rad   = this.#convertionRadian(lat2);
-        var long1Rad  = this.#convertionRadian(long1);
-        var long2Rad  = this.#convertionRadian(long2);
+        var lat1Rad   = this.convertionRadian(lat1);
+        var lat2Rad   = this.convertionRadian(lat2);
+        var long1Rad  = this.convertionRadian(long1);
+        var long2Rad  = this.convertionRadian(long2);
 
         var diffLong  = long2Rad - long1Rad;
         var sinLatRad = Math.sin(lat1Rad) * Math.sin(lat2Rad);
