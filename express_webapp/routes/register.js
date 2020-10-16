@@ -1,5 +1,6 @@
+var bcrypt  = require('bcrypt');
 var express = require('express');
-var router = express.Router();
+var router  = express.Router();
 var sport_track = require('../../sport-track-db');
 
 var User = sport_track.user;
@@ -8,7 +9,7 @@ var user_dao = sport_track.user_dao;
 /**
  * Affiche le formulaire d'inscription
  */
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
 	if (req.session.authenticated) {
 		return res.redirect('/');
 	} else {
@@ -20,7 +21,7 @@ router.get('/', function(req, res, next) {
  * Insère le nouvel utilisateur dans la base de donnée si les données
  * fournis sont valides et si l'utilisateur n'existe pas déjà
  */
-router.post('/', function(req, res, next) {
+router.post('/', function(req, res) {
 	if (req.session.authenticated) {
 		res.redirect('/');
 	} else {
@@ -29,7 +30,8 @@ router.post('/', function(req, res, next) {
 			 req.body.height == undefined || req.body.weight == undefined) {
 			res.status(500).render('error', {message: "Couldn't create user", error:{status: 500, stack: "A value wasn't enterred correctly"}});
 		} else {
-			let new_user = new User(req.body.email, req.body.password, req.body.last_name, req.body.first_name, req.body.birthday, req.body.gender, req.body.height, req.body.weight);
+			let password = bcrypt.hashSync(req.body.password, 10);
+			let new_user = new User(req.body.email, password, req.body.last_name, req.body.first_name, req.body.birthday, req.body.gender, req.body.height, req.body.weight);
 			console.log(new_user);
 			user_dao.findByKey(req.body.email, function(err, rows) {
 				console.log(rows);
@@ -42,7 +44,7 @@ router.post('/', function(req, res, next) {
 					return res.redirect('/register');
 				}
 			});
-		}	
+		}
 	}
 })
 

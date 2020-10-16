@@ -1,7 +1,7 @@
 {
   "activity":{
     "date":"02/09/2018",
-    "description": "<ScRiPt>alert('xss');</ScRiPt>"
+    "description": "RU -> IUT"
   },
   "data":[
     {"time":"15:25:12","cardio_frequency":81,"latitude":47.644793,"longitude":-2.776602,"altitude":18},

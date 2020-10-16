@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 var formidable = require('formidable');
 var moment = require('moment');
+var crypto = require('crypto');
 var express = require('express');
 var router = express.Router();
 var sport_track = require('../../sport-track-db');
@@ -50,7 +51,7 @@ verifKeys = function(data) {
 /**
  * Affiche le formulaire d'upload de fichier json 
  */
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res) {
 	if (req.session.authenticated) {
 		res.render('upload', {active: 'upload'});
 	} else {
@@ -63,7 +64,7 @@ router.get('/', function (req, res, next) {
  * informations sont correctes, si elles le sont insère les données
  * dans la base de donnée
  */
-router.post('/', function (req, res, next) {
+router.post('/', function (req, res) {
 
 	if (!req.session.authenticated) {
 		res.redirect('connect');
@@ -79,7 +80,7 @@ router.post('/', function (req, res, next) {
 	}
 
 	form.on('fileBegin', function (name, file){
-		file.path = appRoot + '/uploads/' + file.name.split(' ').join('-');
+		file.path = appRoot + '/uploads/' + (moment() + ' ' + file.name).split(' ').join('-');
 	});
 
 	form.on('file', function (name, file){
@@ -96,17 +97,14 @@ router.post('/', function (req, res, next) {
 			let cardioMax = fileData.data.reduce((max, p)   => p.cardio_frequency > max ? p.cardio_frequency : max, fileData.data[0].cardio_frequency);
 			let cardioAvg = fileData.data.reduce((total, p) => total + p.cardio_frequency / fileData.data.length, 0);
 
-			console.log('', Activity);
 			let act = new Activity(-1, req.session.email, fileData.activity.date, fileData.activity.description, dist, timedif, starttime, endtime, cardioMin, cardioMax, cardioAvg);
 
 			activity_dao.insert(act, function(err) { 
-				if (err) res.status(500).render('error', {message: "Couldn't insert activity", error:{status: 500, stack: "Activity probably already exists"}});
-				else {
-					let lastid = this.lastID;			
+				if (err) return console.log(key, err);
+				else {	
 					fileData.data.forEach(key => {
-						activityentry_dao.insert(new ActivityEntry(lastid, key.time, key.cardio_frequency, key.latitude, key.longitude, key.altitude), function(err) { 
-							res.status(500).render('error', {message: "Couldn't insert activity data", error:{status: 500, stack: "Activity data probably already exists"}});
-						});
+						let ent = new ActivityEntry(-1, key.time, key.cardio_frequency, key.latitude, key.longitude, key.altitude, this.lastID);
+						activityentry_dao.insert(ent, function(err) {console.log(err)});
 					})
 				}
 			});
@@ -114,7 +112,7 @@ router.post('/', function (req, res, next) {
 		}
 	});
 	
-	res.render('upload', {active: 'upload'});
+	res.redirect('upload');
 });
 
 module.exports = router;

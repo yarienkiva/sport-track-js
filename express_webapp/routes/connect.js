@@ -1,20 +1,19 @@
-var express = require('express');
-var router = express.Router();
+const bcrypt = require('bcrypt');
+var express  = require('express');
+var router   = express.Router();
 var user_dao = require('../../sport-track-db').user_dao;
-// TODO add bcrypt support
-// const bcrypt = require('bcrypt');
 
 /**
  * Affiche le formulaire de connection
  */
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res) {
 	return res.render('connect', {active: 'connect'});
 });
 
 /**
  * Connecte l'utilisateur en créant une session authentifiée
  */
-router.post('/', function (req, res, next) {
+router.post('/', function (req, res) {
 	if (!req.body.email || !req.body.password) {
 		return res.render('connect', {email: req.body.email});
 	}
@@ -22,11 +21,7 @@ router.post('/', function (req, res, next) {
 		if (err != null || rows === undefined || rows.length == 0) {
 			return res.render('connect', {email: req.body.email});
 		} else {
-//			bcrypt.compare(req.body.password, rows[0]['password'], function(err, res){
-//				req.session.authenticated = true;
-//				res.redirect('/users');
-//			});
-			if (req.body.password === rows[0]['password']) {
+			if(bcrypt.compareSync(req.body.password, rows[0]['password'])) {
 				req.session.email = req.body.email;
 				req.session.authenticated = true;
 				res.redirect('/');
