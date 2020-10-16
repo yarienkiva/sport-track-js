@@ -27,23 +27,26 @@ router.post('/', function(req, res) {
 	} else {
 		if (req.body.email == undefined || req.body.password == undefined || req.body.last_name == undefined ||  
 			req.body.first_name == undefined || req.body.birthday == undefined || req.body.gender == undefined ||
-			 req.body.height == undefined || req.body.weight == undefined) {
-			res.status(500).render('error', {message: "Couldn't create user", auth: req.session.authenticated, error:{status: 500, stack: "A value wasn't enterred correctly"}});
+			req.body.height == undefined || req.body.weight == undefined) {
+			return res.status(500).render('register', {active: 'register', auth: req.session.authenticated, error: "Please fill in all fields"});
+
 		} else {
 			let password = bcrypt.hashSync(req.body.password, 10);
 			let new_user = new User(req.body.email, password, req.body.last_name, req.body.first_name, req.body.birthday, req.body.gender, req.body.height, req.body.weight);
-			console.log(new_user);
+			
 			user_dao.findByKey(req.body.email, function(err, rows) {
 				console.log(rows);
 				if (err != null || rows == undefined || rows.length == 0) {
 					user_dao.insert(new_user, function(err){
-						if (err) res.status(500).render('error', {message: "Couldn't create user", auth: req.session.authenticated, error:{status: 500, stack: "A user with that email already exists"}});
+						if (err)
+							return res.status(500).render('register', {active: 'register', auth: req.session.authenticated, error: "Couldn't create user, please contact an administrator"});
 						else res.redirect('/connect');
 					});
 				} else {
-					return res.redirect('/register');
+					return res.status(500).render('register', {active: 'register', auth: req.session.authenticated, error: "A user with that email already exists"});
 				}
 			});
+
 		}
 	}
 })
