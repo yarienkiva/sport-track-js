@@ -100,19 +100,21 @@ router.post('/', function (req, res) {
 			let act = new Activity(-1, req.session.email, fileData.activity.date, fileData.activity.description, dist, timedif, starttime, endtime, cardioMin, cardioMax, cardioAvg);
 
 			activity_dao.insert(act, function(err) { 
-				if (err) return console.log(key, err);
-				else {	
+				if (err !== null) {
+					return console.log(err);
+				} else {	
 					fileData.data.forEach(key => {
 						let ent = new ActivityEntry(-1, key.time, key.cardio_frequency, key.latitude, key.longitude, key.altitude, this.lastID);
-						activityentry_dao.insert(ent, function(err) {console.log(err)});
-					})
+						activityentry_dao.insert(ent, function(err) {
+							if (err !== null) return console.log(err);
+						});
+					});
 				}
 			});
-
 		}
 	});
-	
-	res.redirect('upload');
+
+	res.redirect('/activities');
 });
 
 module.exports = router;

@@ -3,6 +3,10 @@ extends layout
 block content
     h1 List of all activities
 
+    if error
+        pre
+            div.alert.alert-danger(role="alert") #{error}
+
     table.table.table-dark.table-striped
         thead.thead-dark
             tr
@@ -14,14 +18,14 @@ block content
                 th(scope='col') Avg heart freq.
                 th(scope='col') Max heart freq.
                 th(scope='col') Min heart freq.
-        tbody
-            each val in data
-                tr
-                    th(scope='row') #{val.description}
-                    th #{val.date}
-                    th #{val.startHour}
-                    th #{val.duration}
-                    th #{val.distanceTotal}
-                    th #{val.cardioFreqAvg}
-                    th #{val.cardioFreqMax}
-                    th #{val.cardioFreqMin}
+            tbody
+                each val in data
+                    tr
+                        th(scope='row') #{val.description}
+                        th #{val.date}
+                        th #{val.startHour}
+                        th #{val.duration}
+                        th #{val.distanceTotal}
+                        th #{val.cardioFreqAvg}
+                        th #{val.cardioFreqMax}
+                        th #{val.cardioFreqMin}
