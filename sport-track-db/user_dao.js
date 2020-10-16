@@ -2,6 +2,10 @@ var db = require('./sqlite_connection');
 
 var UserDAO = function() {
     
+    /**
+     * Insert un utilisateur
+     * @param  {User}   user
+     */
     this.insert = (user, callback) => {
         let query = "INSERT INTO Users (email, password, last_name, first_name, birthday, gender, height, weight) VALUES (?,?,?,?,?,?,?,?);";
         db.run(
@@ -11,6 +15,10 @@ var UserDAO = function() {
         );
     };
 
+    /**
+     * Update un utilisateur
+     * @param  {User}   user
+     */
     this.update = (user, callback) => {
         let query = "UPDATE Users SET password=?, last_name=?, first_name=?, birthday=?, gender=?, height=?, weight=? WHERE email=?;";
         db.all(
@@ -20,16 +28,28 @@ var UserDAO = function() {
         );
     };
 
+    /**
+     * Supprime un utilisateur
+     * @param  {User}   user
+     */
     this.delete = (user, callback) => {
         let query = "DELETE FROM Users WHERE email=?;";
         db.run(query, [user.email], callback);
     };
 
+    /**
+     * Retourne tous les utilisateurs
+     * @param  {User}   user
+     */
     this.findAll = (callback) => {
         let query = "SELECT * FROM Users ORDER BY email;";
         db.all(query, [], callback);
     };
 
+    /**
+     * Retourne un utilisateur en fonction de son mail
+     * @param  {User}   user
+     */
     this.findByKey = (email, callback) => {
         let query = "SELECT * FROM Users WHERE email=?;";
         db.all(query, [email], callback);

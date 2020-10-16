@@ -1,3 +1,7 @@
+/**
+ * Classe modèle : ActivityEntry
+ * Contient un constructeur et une méthode toString
+ */
 class ActivityEntry {
     constructor(dataId, hour, cardioFreq, latitude, longitude, altitude, activityId){
         this.dataId = dataId;

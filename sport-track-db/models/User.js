@@ -1,3 +1,7 @@
+/**
+ * Classe modèle : User
+ * Contient un constructeur et une méthode toString
+ */
 class User {
     constructor(email,password,last_name,first_name,birthday,gender,height,weight){
         this.email = email;

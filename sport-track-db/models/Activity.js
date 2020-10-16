@@ -1,3 +1,7 @@
+/**
+ * Classe modèle : Activity
+ * Contient un constructeur et une méthode toString
+ */
 class Activity {
     constructor(actId, emailUser, date, description, distanceTotal, duration, startHour, endHour, cardioFreqMin, cardioFreqMax, cardioFreqAvg){
         this.actId = actId;
