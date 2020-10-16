@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 var user_dao = require('../../sport-track-db').user_dao;
 
+/**
+ * Affiche la liste de tous les utilisateurs
+ */
 router.get('/', function(req, res, next) {
 	if (req.session.authenticated) {
 		user_dao.findAll(function(err, rows) {
@@ -12,8 +15,7 @@ router.get('/', function(req, res, next) {
 			}
 		});
 	} else {
-		res.write('<h1>Please login first.</h1>');
-		res.end('<a href='+'/connect'+'>Login</a>'); 
+		res.redirect('connect');
 	}
 });
 

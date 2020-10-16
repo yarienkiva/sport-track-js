@@ -5,13 +5,14 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+// Routers 
+var indexRouter   = require('./routes/index');
+var usersRouter   = require('./routes/users');
 var connectRouter = require('./routes/connect');
-var registerRouter = require('./routes/register');
-var uploadRouter = require('./routes/upload');
-var activityRouter = require('./routes/activity');
-const { acitivity } = require('../sport-track-db/sport-track-db');
+var registerRouter  = require('./routes/register');
+var uploadRouter    = require('./routes/upload');
+var activityRouter  = require('./routes/activity');
+const { activity }  = require('../sport-track-db/sport-track-db');
 
 var app = express();
 

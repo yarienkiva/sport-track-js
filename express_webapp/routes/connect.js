@@ -4,20 +4,25 @@ var user_dao = require('../../sport-track-db').user_dao;
 // TODO add bcrypt support
 // const bcrypt = require('bcrypt');
 
+/**
+ * Affiche le formulaire de connection
+ */
 router.get('/', function (req, res, next) {
-	res.render('connect', {active: 'connect'});
+	return res.render('connect', {active: 'connect'});
 });
 
+/**
+ * Connecte l'utilisateur en créant une session authentifiée
+ */
 router.post('/', function (req, res, next) {
 	if (!req.body.email || !req.body.password) {
-		res.render('connect', {email: req.body.email});
+		return res.render('connect', {email: req.body.email});
 	}
 	user_dao.findByKey(req.body.email, function(err, rows) {
-		console.log(rows);
 		if (err != null || rows === undefined || rows.length == 0) {
-			res.render('connect', {email: req.body.email});
+			return res.render('connect', {email: req.body.email});
 		} else {
-//				bcrypt.compare(req.body.password, rows[0]['password'], function(err, res){
+//			bcrypt.compare(req.body.password, rows[0]['password'], function(err, res){
 //				req.session.authenticated = true;
 //				res.redirect('/users');
 //			});
@@ -26,7 +31,7 @@ router.post('/', function (req, res, next) {
 				req.session.authenticated = true;
 				res.redirect('/');
 			} else {
-				res.render('connect', {email: req.body.email});
+				return res.render('connect', {email: req.body.email});
 			}
 		}
 	});
@@ -34,18 +39,9 @@ router.post('/', function (req, res, next) {
 
 router.get('/logout', (req,res) => {
 	if (req.session.authenticated) {
-	    req.session.destroy((err) => {
-	        if(err) {
-	            return console.log(err);
-	        }
-			res.write('<h1>Logged out</h1>');
-			res.write('<a href='+'/connect'+'>Login</a>'); 
-			res.end('<a href='+'/'+'></a>'); 
-	    });
+	    req.session.destroy((err) => {});
 	}
 	res.redirect('/');
 });
-
-// TODO get('/register') et post('/register')
 
 module.exports = router;
