@@ -1,8 +1,4 @@
 # sport-track-js
-projet web de c mor
+Projet web NodeJS 
 
-
-
-
-
-boris fdp laisse le README sinon j'ai une popup chiante
+Réalisé par Aloïs de Souza & Boris Lickindorf
