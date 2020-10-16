@@ -53,7 +53,7 @@ verifKeys = function(data) {
  */
 router.get('/', function (req, res) {
 	if (req.session.authenticated) {
-		res.render('upload', {active: 'upload'});
+		res.render('upload', {active: 'upload', auth: req.session.authenticated});
 	} else {
 		res.redirect('connect');
 	}
