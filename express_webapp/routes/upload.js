@@ -80,7 +80,7 @@ router.post('/', function (req, res) {
 	}
 
 	form.on('fileBegin', function (name, file){
-		file.path = appRoot + '/uploads/' + (moment() + ' ' + file.name).split(' ').join('-');
+		file.path = appRoot + '/uploads/' + moment() + '-' + file.name.replace(' ', '-');
 	});
 
 	form.on('file', function (name, file){

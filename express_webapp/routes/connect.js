@@ -24,22 +24,30 @@ router.post('/', function (req, res) {
 	if (!req.body.email || !req.body.password) {
 		return res.render('connect', {
 			active: 'connect', email: req.body.email,
-			auth: req.session.authenticated, error: 'Please provide an email and a password.'
+			auth: req.session.authenticated,
+			error: 'Please provide an email and a password.'
 		});
 	}
 	user_dao.findByKey(req.body.email, function(err, rows) {
 		if (err != null || rows === undefined || rows.length == 0) {
-			return res.status(500).render('connect', {active: 'connect', auth: req.session.authenticated, error: 'This email address is not link with any account.'});
+			return res.status(400).render('connect', {
+				active: 'connect',
+				auth: req.session.authenticated,
+				error: 'This email address is not link with any account.'
+			});
 		} else {
-			// console.log(req.body.password, rows[0]['password']);
 			if(bcrypt.compareSync(req.body.password, rows[0]['password'])) {
 				req.session.user  = rows[0]; 
 				req.session.email = req.body.email;
-				// console.log(req.session)
 				req.session.authenticated = true;
 				res.redirect('/');
 			} else {
-				return res.render('connect', {active: 'connect', email: req.body.email, auth: req.session.authenticated, error: 'Wrong password !'});
+				return res.render('connect', {
+					active: 'connect', 
+					email: req.body.email, 
+					auth: req.session.authenticated, 
+					error: 'Wrong password !'
+				});
 			}
 		}
 	});
