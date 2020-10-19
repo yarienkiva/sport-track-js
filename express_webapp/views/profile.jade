@@ -11,9 +11,9 @@ block content
 		.form-group
 			label(for='emailInput') Email address
 			if user
-				input#emailInput.form-control(type='email' name='email' aria-describedby='emailHelp' value=user.email)
+				input#emailInput.form-control(type='email' name='email' aria-describedby='emailHelp' value=user.email, readonly=true)
 			else
-				input#emailInput.form-control(type='email' name='email' aria-describedby='emailHelp')
+				input#emailInput.form-control(type='email' name='email' aria-describedby='emailHelp', readonly=true)
 			small#emailHelp.form-text.text-muted Ex: name@domain.com
 		.form-group
 			label(for='passowrdInput') Password

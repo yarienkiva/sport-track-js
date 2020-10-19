@@ -26,7 +26,7 @@ router.post('/', function(req, res) {
 		res.redirect('/register');
 	} else {
 		// console.log(req.body)
-		let new_user = new User(req.body.email, req.body.password, req.body.last_name, req.body.first_name, req.body.birthday, req.body.gender, req.body.height, req.body.weight);
+		let new_user = new User(req.session.email, req.body.password, req.body.last_name, req.body.first_name, req.body.birthday, req.body.gender, req.body.height, req.body.weight);
 		if (!new_user.isValid()) {
 			res.status(400).render('profile', {
 				active: 'profile', error: "Please enter all the values.",
